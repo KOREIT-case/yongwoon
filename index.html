@@ -37,15 +37,58 @@
     top: 0;
     z-index: 100;
   }
-  .logo { font-size: 14px; font-weight: 700; letter-spacing: 0.05em; color: var(--blue-light); }
+  .logo { font-size: 14px; font-weight: 700; letter-spacing: 0.05em; color: var(--blue-light); text-decoration: none; display: inline-flex; align-items: center; }
+  .logo:hover { color: #a0c0ff; }
   .logo span { color: rgba(255,255,255,0.5); font-weight: 400; margin-left: 8px; font-size: 13px; }
+
+  /* ── DROPDOWN ── */
+  .dropdown { position: relative; }
   .badge-corp {
     font-size: 12px;
     padding: 4px 12px;
     border: 1px solid var(--border);
     border-radius: 20px;
     color: var(--gray);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    transition: border-color .2s, color .2s;
   }
+  .badge-corp:hover { border-color: rgba(255,255,255,.35); color: rgba(255,255,255,.85); }
+  .badge-corp .arrow { font-size: 9px; transition: transform .2s; }
+  .dropdown.open .badge-corp .arrow { transform: rotate(180deg); }
+  .drop-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    background: #1A2640;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    min-width: 260px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.5);
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+  }
+  .dropdown.open .drop-menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .drop-header { font-size: 10px; letter-spacing: .1em; color: var(--gray); padding: 12px 16px 6px; text-transform: uppercase; }
+  .drop-item {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: rgba(255,255,255,.75);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    transition: background .15s, color .15s;
+  }
+  .drop-item:hover { background: rgba(51,102,255,.15); color: #fff; }
+  .drop-item .di-title { font-weight: 600; margin-bottom: 2px; }
+  .drop-item .di-sub { font-size: 11px; color: var(--gray); }
 
   /* HERO */
   .hero {
@@ -286,9 +329,36 @@
 <body>
 
 <header>
-  <div class="logo">KOREIT <span>한국토지신탁</span></div>
-  <div class="badge-corp">Best Practice Case Study</div>
+  <a href="https://www.koreit.co.kr/main.html" class="logo" target="_blank" rel="noopener">KOREIT <span>한국토지신탁</span></a>
+
+  <div class="dropdown" id="dropdown">
+    <button class="badge-corp" onclick="toggleDropdown()">
+      Best Practice · 인허가 위험 관리
+      <span class="arrow">▼</span>
+    </button>
+    <div class="drop-menu">
+      <div class="drop-header">Case Studies</div>
+      <a class="drop-item" href="https://koreit-case.github.io/jangmi/" target="_blank" rel="noopener">
+        <div class="di-title">여의도 장미 아파트 재건축</div>
+        <div class="di-sub">일조권 검토 추진 경과 · 인허가 위험 관리</div>
+      </a>
+      <a class="drop-item" href="https://koreit-case.github.io/yongwoon/" target="_blank" rel="noopener">
+        <div class="di-title">대전 용운주공 재건축</div>
+        <div class="di-sub">사업성 분석 · 인허가 위험 관리</div>
+      </a>
+    </div>
+  </div>
 </header>
+
+<script>
+function toggleDropdown(){
+  document.getElementById('dropdown').classList.toggle('open');
+}
+document.addEventListener('click', function(e){
+  const dd = document.getElementById('dropdown');
+  if(!dd.contains(e.target)) dd.classList.remove('open');
+});
+</script>
 
 <section class="hero">
   <div class="hero-badge">신탁방식 정비사업 대표 사례</div>

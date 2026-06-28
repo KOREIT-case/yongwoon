@@ -3,543 +3,643 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>대전 용운주공 재건축 사업성 분석 — 한국토지신탁</title>
-<style>
-  :root {
-    --navy: #0A111F;
-    --navy2: #111D38;
-    --blue: #3366FF;
-    --blue-light: #7AAEFF;
-    --white: #FFFFFF;
-    --gray: #8899AA;
-    --surface: #141E32;
-    --border: rgba(255,255,255,0.1);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
-  }
-  a { color: var(--blue-light); text-decoration: none; }
-
-  /* HEADER */
-  header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 18px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .logo { font-size: 14px; font-weight: 700; letter-spacing: 0.05em; color: var(--blue-light); text-decoration: none; display: inline-flex; align-items: center; }
-  .logo:hover { color: #a0c0ff; }
-  .logo span { color: rgba(255,255,255,0.5); font-weight: 400; margin-left: 8px; font-size: 13px; }
-
-  /* ── DROPDOWN ── */
-  .dropdown { position: relative; }
-  .badge-corp {
-    font-size: 12px;
-    padding: 4px 12px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--gray);
-    cursor: pointer;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: transparent;
-    transition: border-color .2s, color .2s;
-  }
-  .badge-corp:hover { border-color: rgba(255,255,255,.35); color: rgba(255,255,255,.85); }
-  .badge-corp .arrow { font-size: 9px; transition: transform .2s; }
-  .dropdown.open .badge-corp .arrow { transform: rotate(180deg); }
-  .drop-menu {
-    position: absolute;
-    right: 0;
-    top: calc(100% + 10px);
-    background: #1A2640;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    min-width: 260px;
-    box-shadow: 0 12px 40px rgba(0,0,0,.5);
-    opacity: 0;
-    transform: translateY(-6px);
-    pointer-events: none;
-    transition: opacity .2s, transform .2s;
-  }
-  .dropdown.open .drop-menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  .drop-header { font-size: 10px; letter-spacing: .1em; color: var(--gray); padding: 12px 16px 6px; text-transform: uppercase; }
-  .drop-item {
-    display: block;
-    padding: 12px 16px;
-    text-decoration: none;
-    color: rgba(255,255,255,.75);
-    font-size: 13px;
-    border-top: 1px solid var(--border);
-    transition: background .15s, color .15s;
-  }
-  .drop-item:hover { background: rgba(51,102,255,.15); color: #fff; }
-  .drop-item .di-title { font-weight: 600; margin-bottom: 2px; }
-  .drop-item .di-sub { font-size: 11px; color: var(--gray); }
-
-  /* HERO */
-  .hero {
-    padding: 80px 32px 60px;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-  .hero-badge {
-    display: inline-block;
-    font-size: 12px;
-    padding: 4px 14px;
-    border: 1px solid rgba(51,102,255,0.4);
-    background: rgba(51,102,255,0.1);
-    border-radius: 20px;
-    color: var(--blue-light);
-    margin-bottom: 24px;
-    letter-spacing: 0.05em;
-  }
-  .hero h1 {
-    font-size: clamp(28px, 5vw, 48px);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
-  .hero h1 span { color: var(--blue-light); }
-  .hero p {
-    font-size: 16px;
-    color: rgba(255,255,255,0.55);
-    max-width: 560px;
-    line-height: 1.8;
-  }
-
-  /* KPI GRID */
-  .kpi-section {
-    background: var(--surface);
-    padding: 60px 32px;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .section-inner { max-width: 860px; margin: 0 auto; }
-  .section-label {
-    font-size: 12px;
-    color: var(--blue-light);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .section-title {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 36px;
-  }
-  .kpi-hero {
-    margin-bottom: 40px;
-  }
-  .kpi-hero .number {
-    font-size: clamp(52px, 8vw, 80px);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .kpi-hero .desc {
-    font-size: 15px;
-    color: rgba(255,255,255,0.5);
-  }
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-  }
-  .kpi-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px 20px;
-  }
-  .kpi-card.accent {
-    background: rgba(51,102,255,0.12);
-    border-color: rgba(51,102,255,0.35);
-  }
-  .kpi-card .label {
-    font-size: 12px;
-    color: var(--blue-light);
-    letter-spacing: 0.06em;
-    margin-bottom: 10px;
-  }
-  .kpi-card .val {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    line-height: 1.1;
-  }
-  .kpi-card .sub {
-    font-size: 12px;
-    color: rgba(255,255,255,0.4);
-  }
-
-  /* TABLE SECTION */
-  .table-section { padding: 60px 32px; }
-  .comparison-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-    margin-top: 24px;
-  }
-  .comparison-table th {
-    background: rgba(51,102,255,0.15);
-    color: var(--blue-light);
-    padding: 12px 16px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 13px;
-    border-bottom: 1px solid rgba(51,102,255,0.3);
-  }
-  .comparison-table th:first-child { text-align: left; }
-  .comparison-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    text-align: center;
-    color: rgba(255,255,255,0.8);
-  }
-  .comparison-table td:first-child {
-    text-align: left;
-    color: rgba(255,255,255,0.55);
-    font-size: 13px;
-  }
-  .comparison-table tr:hover td { background: rgba(255,255,255,0.03); }
-  .comparison-table .diff { color: #5DCAA5; font-weight: 600; }
-  .comparison-table .diff-neg { color: #5DCAA5; font-weight: 600; }
-  .comparison-table .highlight-row td { background: rgba(51,102,255,0.08); }
-
-  /* TIMELINE */
-  .timeline-section { padding: 60px 32px; background: var(--surface); }
-  .timeline {
-    position: relative;
-    margin-top: 32px;
-    padding-left: 32px;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 8px;
-    top: 8px;
-    bottom: 8px;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--blue), rgba(51,102,255,0.1));
-  }
-  .timeline-item {
-    position: relative;
-    margin-bottom: 32px;
-  }
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -28px;
-    top: 6px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--blue);
-    border: 2px solid var(--navy);
-  }
-  .timeline-item .year {
-    font-size: 12px;
-    color: var(--blue-light);
-    font-weight: 600;
-    margin-bottom: 4px;
-    letter-spacing: 0.05em;
-  }
-  .timeline-item .event {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .timeline-item .detail {
-    font-size: 13px;
-    color: rgba(255,255,255,0.5);
-  }
-
-  /* QUOTE */
-  .quote-section {
-    padding: 60px 32px;
-    border-top: 1px solid var(--border);
-  }
-  blockquote {
-    border-left: 3px solid var(--blue);
-    padding: 20px 24px;
-    background: rgba(51,102,255,0.06);
-    border-radius: 0 8px 8px 0;
-    font-size: 16px;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.8;
-  }
-  blockquote cite {
-    display: block;
-    margin-top: 12px;
-    font-size: 13px;
-    color: var(--gray);
-    font-style: normal;
-  }
-
-  /* FOOTER */
-  footer {
-    padding: 40px 32px;
-    border-top: 1px solid var(--border);
-    text-align: center;
-    font-size: 13px;
-    color: rgba(255,255,255,0.3);
-  }
-  footer strong { color: rgba(255,255,255,0.6); }
-
-  /* DISCLAIMER */
-  .disclaimer {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 24px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 8px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.3);
-    line-height: 1.7;
-  }
-
-  @media (max-width: 600px) {
-    header, .hero, .kpi-section .section-inner,
-    .table-section .section-inner,
-    .timeline-section .section-inner,
-    .quote-section .section-inner { padding: 16px; }
-    .kpi-hero .number { font-size: 48px; }
-    .comparison-table { font-size: 12px; }
-    .comparison-table th, .comparison-table td { padding: 8px 10px; }
-  }
-</style>
+<title>대전 용운주공 재건축 — 한국토지신탁</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;700;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink: #0F1923;
+  --ink2: #1E2D3D;
+  --cream: #F5F1EA;
+  --cream2: #EDE8DF;
+  --blue: #1B4FD8;
+  --blue-light: #4B7BF5;
+  --green: #0D8A6A;
+  --gold: #C49A2E;
+  --gray: #6B7280;
+  --border: #DDD8CE;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(245,241,234,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.logo-mark {
+  width: 32px; height: 32px;
+  background: var(--ink);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-mark span {
+  color: var(--cream);
+  font-size: 10px; font-weight: 700; letter-spacing: -0.5px;
+}
+.logo-name {
+  font-size: 13px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em;
+}
+.header-tag {
+  font-size: 11px; color: var(--gray);
+  border: 1px solid var(--border);
+  padding: 4px 12px; border-radius: 20px;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg-number {
+  position: absolute;
+  right: -40px; top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(200px, 30vw, 380px);
+  font-weight: 900;
+  color: var(--cream2);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: -0.05em;
+}
+.hero-eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--ink);
+  max-width: 700px;
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--blue);
+}
+.hero-sub {
+  font-size: 16px; color: var(--gray);
+  max-width: 480px; line-height: 1.8;
+  margin-bottom: 48px;
+}
+.hero-stats {
+  display: flex; gap: 40px;
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+}
+.hero-stat-num {
+  font-size: 36px; font-weight: 700; color: var(--ink);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 12px; color: var(--gray); margin-top: 4px;
+}
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 48px;
+  font-size: 11px; color: var(--gray); letter-spacing: 0.1em;
+  display: flex; align-items: center; gap: 8px;
+}
+.scroll-hint::before {
+  content: '';
+  display: block; width: 24px; height: 1px;
+  background: var(--gray);
+}
+
+/* ── DIVIDER ── */
+.section-divider {
+  height: 1px; background: var(--border);
+  margin: 0 48px;
+}
+
+/* ── KPI SECTION ── */
+.kpi-section {
+  background: var(--ink);
+  padding: 100px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 79px,
+    rgba(255,255,255,0.03) 79px,
+    rgba(255,255,255,0.03) 80px
+  );
+  pointer-events: none;
+}
+.kpi-inner { max-width: 960px; margin: 0 auto; position: relative; }
+.kpi-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(255,255,255,0.4);
+  margin-bottom: 16px;
+}
+.kpi-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(48px, 8vw, 96px);
+  color: white;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.kpi-headline span { color: var(--gold); }
+.kpi-desc {
+  font-size: 14px; color: rgba(255,255,255,0.4);
+  margin-bottom: 64px;
+}
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.kpi-card {
+  background: rgba(255,255,255,0.04);
+  padding: 32px 28px;
+  position: relative;
+}
+.kpi-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 28px; right: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background: transparent;
+  transition: background 0.6s ease;
+}
+.kpi-card.blue::after { background: var(--blue-light); }
+.kpi-card.green::after { background: #2ECC9A; }
+.kpi-card.gold::after { background: var(--gold); }
+.kpi-card .k-label {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 16px;
+}
+.kpi-card .k-num {
+  font-size: 40px; font-weight: 700; color: white;
+  line-height: 1; margin-bottom: 6px;
+}
+.kpi-card .k-num.blue { color: #7AAEFF; }
+.kpi-card .k-num.green { color: #2ECC9A; }
+.kpi-card .k-num.gold { color: var(--gold); }
+.kpi-card .k-sub {
+  font-size: 12px; color: rgba(255,255,255,0.3);
+}
+.kpi-bar-wrap {
+  margin-top: 16px;
+  height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px;
+}
+.kpi-bar {
+  height: 100%; border-radius: 2px;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+.kpi-bar.blue { background: var(--blue-light); }
+.kpi-bar.green { background: #2ECC9A; }
+.kpi-bar.gold { background: var(--gold); }
+
+/* ── COMPARE SECTION ── */
+.compare-section {
+  padding: 100px 48px;
+  background: white;
+}
+.compare-inner { max-width: 960px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  color: var(--ink); margin-bottom: 48px;
+  line-height: 1.2;
+}
+
+.bar-compare { margin-bottom: 20px; }
+.bar-label {
+  display: flex; justify-content: space-between;
+  font-size: 13px; color: var(--gray); margin-bottom: 6px;
+}
+.bar-label strong { color: var(--ink); font-weight: 600; }
+.bar-track {
+  height: 8px; background: var(--cream2); border-radius: 4px;
+  position: relative; overflow: visible;
+}
+.bar-fill-a, .bar-fill-b {
+  position: absolute; top: 0; height: 100%; border-radius: 4px;
+  transform-origin: left; transform: scaleX(0);
+  transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+.bar-fill-b { background: #D1D5DB; }
+.bar-fill-a { background: var(--blue); }
+.bar-dual { height: 8px; position: relative; }
+
+.compare-table {
+  width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 48px;
+}
+.compare-table th {
+  padding: 10px 16px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gray); text-align: right; border-bottom: 2px solid var(--ink);
+}
+.compare-table th:first-child { text-align: left; }
+.compare-table td {
+  padding: 14px 16px; border-bottom: 1px solid var(--border);
+  text-align: right; color: var(--ink);
+}
+.compare-table td:first-child { text-align: left; color: var(--gray); }
+.compare-table .diff { color: var(--green); font-weight: 700; }
+.compare-table .diff-cost { color: var(--green); font-weight: 700; }
+.compare-table .highlight td {
+  background: var(--cream); font-weight: 700;
+}
+.compare-table .group-header td {
+  background: var(--ink); color: rgba(255,255,255,0.5);
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 8px 16px;
+}
+
+/* ── TIMELINE ── */
+.timeline-section {
+  padding: 100px 48px;
+  background: var(--cream);
+}
+.timeline-inner { max-width: 960px; margin: 0 auto; }
+.timeline-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 48px;
+}
+.t-card {
+  background: white;
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.t-card:first-child { border-radius: 12px 0 0 0; }
+.t-card:nth-child(2) { border-radius: 0 12px 0 0; }
+.t-card:nth-child(3) { border-radius: 0 0 0 12px; }
+.t-card:last-child { border-radius: 0 0 12px 0; }
+.t-card.active { background: var(--ink); }
+.t-num {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.15em;
+  color: var(--border); margin-bottom: 24px;
+}
+.t-card.active .t-num { color: rgba(255,255,255,0.2); }
+.t-period {
+  font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 6px;
+}
+.t-card.active .t-period { color: white; }
+.t-event {
+  font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 8px;
+}
+.t-card.active .t-event { color: rgba(255,255,255,0.9); }
+.t-detail {
+  font-size: 13px; color: var(--gray); line-height: 1.7;
+}
+.t-card.active .t-detail { color: rgba(255,255,255,0.4); }
+.t-accent {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--blue);
+}
+
+/* ── QUOTE ── */
+.quote-section {
+  background: var(--ink2);
+  padding: 100px 48px;
+}
+.quote-inner {
+  max-width: 720px; margin: 0 auto; text-align: center;
+}
+.quote-mark {
+  font-family: 'DM Serif Display', serif;
+  font-size: 80px; color: var(--blue-light);
+  line-height: 0.6; margin-bottom: 24px; opacity: 0.3;
+}
+blockquote {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(20px, 3vw, 28px);
+  color: white; line-height: 1.6;
+  font-style: italic; margin-bottom: 32px;
+}
+cite {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px; color: rgba(255,255,255,0.3);
+  font-style: normal; letter-spacing: 0.05em;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  padding: 48px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  line-height: 1.8;
+}
+footer strong { color: rgba(255,255,255,0.5); }
+.footer-inner {
+  max-width: 960px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 24px; flex-wrap: wrap;
+}
+
+/* ── REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1; transform: none;
+}
+
+@media (max-width: 680px) {
+  header { padding: 0 20px; }
+  .hero { padding: 100px 24px 60px; }
+  .hero-bg-number { font-size: 160px; right: -20px; }
+  .hero-stats { gap: 24px; flex-wrap: wrap; }
+  .kpi-section, .compare-section, .timeline-section, .quote-section { padding: 64px 24px; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .timeline-grid { grid-template-columns: 1fr; }
+  .section-divider { margin: 0 24px; }
+  footer { padding: 32px 24px; }
+}
+</style>
 </head>
 <body>
 
 <header>
-  <a href="https://www.koreit.co.kr/main.html" class="logo" target="_blank" rel="noopener">KOREIT <span>한국토지신탁</span></a>
-
-  <div class="dropdown" id="dropdown">
-    <button class="badge-corp" onclick="toggleDropdown()">
-      Best Practice · 인허가 위험 관리
-      <span class="arrow">▼</span>
-    </button>
-    <div class="drop-menu">
-      <div class="drop-header">Case Studies</div>
-      <a class="drop-item" href="https://koreit-case.github.io/jangmi/" target="_blank" rel="noopener">
-        <div class="di-title">여의도 장미 아파트 재건축</div>
-        <div class="di-sub">일조권 검토 추진 경과 · 인허가 위험 관리</div>
-      </a>
-      <a class="drop-item" href="https://koreit-case.github.io/yongwoon/" target="_blank" rel="noopener">
-        <div class="di-title">대전 용운주공 재건축</div>
-        <div class="di-sub">사업성 분석 · 인허가 위험 관리</div>
-      </a>
-    </div>
-  </div>
+  <a href="https://www.koreit.co.kr/main.html" class="logo" target="_blank" rel="noopener">
+    <div class="logo-mark"><span>KR</span></div>
+    <span class="logo-name">한국토지신탁</span>
+  </a>
+  <span class="header-tag">도시재생 · 신탁전환 사례</span>
 </header>
 
-<script>
-function toggleDropdown(){
-  document.getElementById('dropdown').classList.toggle('open');
-}
-document.addEventListener('click', function(e){
-  const dd = document.getElementById('dropdown');
-  if(!dd.contains(e.target)) dd.classList.remove('open');
-});
-</script>
-
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">신탁방식 정비사업 대표 사례</div>
-  <h1>대전 용운주공 재건축<br><span>조합 → 신탁 전환으로<br>603억원을 만들다</span></h1>
-  <p style="margin-top:20px;">
-    조합방식으로 추진하던 대전 용운주공 재건축사업이 신탁방식으로 전환하면서
-    수입 증가와 사업비 절감을 동시에 달성한 신탁방식 정비사업의 상징적 사례입니다.
-  </p>
+  <div class="hero-bg-number" aria-hidden="true">603</div>
+  <div class="hero-eyebrow">Case Study · 대전 용운주공 재건축</div>
+  <h1>조합에서 신탁으로,<br><em>603억원</em>의 차이</h1>
+  <p class="hero-sub">수익성 부족으로 정체됐던 재건축사업. 한국토지신탁이 사업시행자로 전환한 후 수입 증가와 비용 절감을 동시에 실현했습니다.</p>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num" data-count="603" data-suffix="억">0억</div>
+      <div class="hero-stat-label">총 이익 개선</div>
+    </div>
+    <div>
+      <div class="hero-stat-num" data-count="2267" data-suffix="세대">0세대</div>
+      <div class="hero-stat-label">준공 규모</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">120.37%</div>
+      <div class="hero-stat-label">신탁방식 수익률</div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">스크롤</div>
 </section>
 
+<div class="section-divider"></div>
+
+<!-- KPI -->
 <section class="kpi-section">
-  <div class="section-inner">
-    <div class="section-label">핵심 성과</div>
-    <div class="section-title">조합방식 대비 총 이익</div>
-
-    <div class="kpi-hero">
-      <div class="number">603억원</div>
-      <div class="desc">수입 300억 증가 + 사업비 303억 절감 (청산 추가 이익 100억 별도)</div>
-    </div>
-
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="label">수입 증가</div>
-        <div class="val">+300억원</div>
-        <div class="sub">사업수입 5.7% 증가</div>
+  <div class="kpi-inner">
+    <div class="kpi-label reveal">핵심 성과 — 조합방식 대비</div>
+    <div class="kpi-headline reveal"><span>603</span>억원</div>
+    <div class="kpi-desc reveal">수입 증가 300억 + 사업비 절감 303억 (청산 추가이익 100억 별도)</div>
+    <div class="kpi-grid reveal">
+      <div class="kpi-card blue">
+        <div class="k-label">수입 증가</div>
+        <div class="k-num blue" data-count="300" data-suffix="억">0억</div>
+        <div class="k-sub">사업수입 5.7% 증가</div>
+        <div class="kpi-bar-wrap"><div class="kpi-bar blue" style="width:60%"></div></div>
       </div>
-      <div class="kpi-card">
-        <div class="label">사업비 절감</div>
-        <div class="val">-303억원</div>
-        <div class="sub">총 사업비 6.5% 절감</div>
+      <div class="kpi-card green">
+        <div class="k-label">사업비 절감</div>
+        <div class="k-num green" data-count="303" data-suffix="억">0억</div>
+        <div class="k-sub">총 사업비 6.5% 절감</div>
+        <div class="kpi-bar-wrap"><div class="kpi-bar green" style="width:65%"></div></div>
       </div>
-      <div class="kpi-card accent">
-        <div class="label">조합원 1인당</div>
-        <div class="val">+7천만원</div>
-        <div class="sub">추가 수익 발생</div>
-      </div>
-      <div class="kpi-card">
-        <div class="label">청산 추가 이익</div>
-        <div class="val">+100억원</div>
-        <div class="sub">청산시 추가 발생 이익</div>
+      <div class="kpi-card gold">
+        <div class="k-label">조합원 1인당</div>
+        <div class="k-num gold">+7천만원</div>
+        <div class="k-sub">추가 수익 발생</div>
+        <div class="kpi-bar-wrap"><div class="kpi-bar gold" style="width:70%"></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="table-section">
-  <div class="section-inner">
-    <div class="section-label">상세 비교</div>
-    <div class="section-title">조합방식 vs 신탁방식 사업성 비교</div>
-    <div style="overflow-x:auto;">
-    <table class="comparison-table">
+<!-- COMPARE -->
+<section class="compare-section">
+  <div class="compare-inner">
+    <div class="section-eyebrow reveal">상세 비교</div>
+    <div class="section-title reveal">조합방식 vs 신탁방식</div>
+
+    <div class="reveal">
+      <div class="bar-compare">
+        <div class="bar-label">
+          <span>사업 수입</span>
+          <span><strong style="color:var(--blue)">신탁 5,401억</strong> vs 조합 5,019억</span>
+        </div>
+        <div class="bar-track" style="height:12px;">
+          <div class="bar-fill-b" style="width:100%; top:0; background:#E5E7EB;"></div>
+          <div class="bar-fill-a" style="width:calc(5401/5401*100%); top:0; background:var(--blue);"></div>
+          <div class="bar-fill-b" style="width:calc(5019/5401*100%); top:0; height:6px; margin-top:3px; background:rgba(0,0,0,0.12);"></div>
+        </div>
+      </div>
+
+      <div class="bar-compare" style="margin-top:24px;">
+        <div class="bar-label">
+          <span>사업비</span>
+          <span><strong style="color:var(--green)">신탁 4,349억</strong> vs 조합 4,653억</span>
+        </div>
+        <div class="bar-track" style="height:12px;">
+          <div class="bar-fill-b" style="width:100%; top:0; background:#E5E7EB;"></div>
+          <div class="bar-fill-b" style="width:calc(4653/4653*100%); top:0; height:6px; margin-top:3px; background:rgba(0,0,0,0.12);"></div>
+          <div class="bar-fill-a" style="width:calc(4349/4653*100%); top:0; background:var(--green);"></div>
+        </div>
+      </div>
+
+      <div class="bar-compare" style="margin-top:24px;">
+        <div class="bar-label">
+          <span>수익률</span>
+          <span><strong style="color:var(--blue)">신탁 120.37%</strong> vs 조합 104.05%</span>
+        </div>
+        <div class="bar-track" style="height:12px; background:var(--cream2);">
+          <div class="bar-fill-b" style="width:calc(104.05/120.37*100%); background:#D1D5DB;"></div>
+          <div class="bar-fill-a" style="width:100%; background:var(--blue);"></div>
+        </div>
+      </div>
+    </div>
+
+    <table class="comparison-table compare-table reveal" style="margin-top:64px;">
       <thead>
         <tr>
-          <th>구분</th>
-          <th>조합방식 (B)</th>
-          <th>신탁방식 (A)</th>
-          <th>차이 (A-B)</th>
+          <th style="text-align:left;">구분</th>
+          <th>조합방식</th>
+          <th>신탁방식</th>
+          <th>차이</th>
           <th>비고</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="background:rgba(255,255,255,0.02);">
-          <td colspan="5" style="font-size:12px; color:var(--blue-light); padding: 14px 16px 6px; font-weight:600;">사업 수입</td>
-        </tr>
-        <tr>
-          <td>합계</td>
-          <td>5,019억원</td>
-          <td>5,401억원</td>
-          <td class="diff">+382억원</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>분양수입 + 기타수입</td>
-          <td>5,019억원</td>
-          <td>5,101억원</td>
-          <td class="diff">+290억원</td>
-          <td>분양단가 상승·일반분양 세대수 증가</td>
-        </tr>
-        <tr>
-          <td>추가수입</td>
-          <td>—</td>
-          <td>+10억원</td>
-          <td class="diff">+10억원</td>
-          <td></td>
-        </tr>
-        <tr style="background:rgba(255,255,255,0.02);">
-          <td colspan="5" style="font-size:12px; color:var(--blue-light); padding: 14px 16px 6px; font-weight:600;">사업비</td>
-        </tr>
-        <tr>
-          <td>합계</td>
-          <td>4,653억원</td>
-          <td>4,349억원</td>
-          <td class="diff-neg">-303억원</td>
-          <td>총 사업비 6.5% 절감</td>
-        </tr>
-        <tr>
-          <td>도급공사비</td>
-          <td>3,417억원<br><span style="font-size:11px;color:var(--gray);">@376만원</span></td>
-          <td>2,909억원<br><span style="font-size:11px;color:var(--gray);">@332만원</span></td>
-          <td class="diff-neg" style="color:#F09595;">-508억원</td>
-          <td style="color:#F09595; font-weight:600;">공사비 파격 절감<br><span style="font-size:11px; font-weight:400;">연면적 증가·ESC 공기별 동일 계상</span></td>
-        </tr>
-        <tr>
-          <td>기타 사업비</td>
-          <td>829억원</td>
-          <td>1,280억원</td>
-          <td>+451억원</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>신탁보수</td>
-          <td>—</td>
-          <td>160억원</td>
-          <td>160억원</td>
-          <td></td>
-        </tr>
-        <tr class="highlight-row">
-          <td style="font-weight:600; color:white;">비율 (수익률)</td>
-          <td>104.05%<br><span style="font-size:11px; color:var(--gray);">사업진행불가 51.28%</span></td>
-          <td style="font-weight:700; color:white;">120.37%</td>
-          <td class="diff">+69.09%p</td>
-          <td style="font-weight:600;">조합원 분담금 감소</td>
-        </tr>
+        <tr class="group-header"><td colspan="5">사업 수입</td></tr>
+        <tr><td>합계</td><td>5,019억원</td><td>5,401억원</td><td class="diff">+382억원</td><td></td></tr>
+        <tr><td>분양수입 + 기타</td><td>5,019억원</td><td>5,101억원</td><td class="diff">+290억원</td><td>분양단가 상승·일반분양 세대수 증가</td></tr>
+        <tr><td>추가수입</td><td>—</td><td>+10억원</td><td class="diff">+10억원</td><td></td></tr>
+        <tr class="group-header"><td colspan="5">사업비</td></tr>
+        <tr><td>합계</td><td>4,653억원</td><td>4,349억원</td><td class="diff-cost">-303억원</td><td>총 사업비 6.5% 절감</td></tr>
+        <tr><td>도급공사비</td><td>3,417억원 <small style="color:var(--gray);">@376만원</small></td><td>2,909억원 <small style="color:var(--gray);">@332만원</small></td><td class="diff-cost">-508억원</td><td style="color:var(--green);font-weight:600;">공사비 파격 절감</td></tr>
+        <tr><td>기타 사업비</td><td>829억원</td><td>1,280억원</td><td style="color:var(--gray);">+451억원</td><td></td></tr>
+        <tr><td>신탁보수</td><td>—</td><td>160억원</td><td style="color:var(--gray);">+160억원</td><td></td></tr>
+        <tr class="highlight"><td>수익률</td><td>104.05%</td><td>120.37%</td><td class="diff">+69.09%p</td><td>조합원 분담금 감소</td></tr>
       </tbody>
     </table>
-    </div>
-    <p style="font-size:12px; color:rgba(255,255,255,0.3); margin-top:16px; line-height:1.7;">
-      ※ 상기 내용은 특정 시점의 사례로서 타 사업장과 다를 수 있으며, 실제 계획 수립 후 사업시행계획인가 등을 거쳐 변동될 수 있습니다.
-    </p>
+    <p style="font-size:12px;color:var(--gray);margin-top:16px;line-height:1.7;">※ 상기 내용은 특정 시점의 사례로서 타 사업장과 다를 수 있으며, 실제 계획 수립 후 사업시행계획인가 등을 거쳐 변동될 수 있습니다.</p>
   </div>
 </section>
 
+<!-- TIMELINE -->
 <section class="timeline-section">
-  <div class="section-inner">
-    <div class="section-label">사업 경과</div>
-    <div class="section-title">대전 용운주공 재건축 추진 경과</div>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="year">조합방식 추진</div>
-        <div class="event">조합설립 및 사업추진 착수</div>
-        <div class="detail">조합설립인가 후 재건축사업 추진 — 수익성 부족으로 사업 정체</div>
+  <div class="timeline-inner">
+    <div class="section-eyebrow reveal">추진 경과</div>
+    <div class="section-title reveal">사업의 흐름</div>
+    <div class="timeline-grid reveal">
+      <div class="t-card">
+        <div class="t-num">01</div>
+        <div class="t-period">조합 추진기</div>
+        <div class="t-event">조합설립 및 사업추진 착수</div>
+        <div class="t-detail">조합설립인가 후 재건축사업 추진 — 수익성 부족으로 사업 정체 지속</div>
       </div>
-      <div class="timeline-item">
-        <div class="year">신탁전환 결정</div>
-        <div class="event">한국토지신탁으로 사업시행자 전환</div>
-        <div class="detail">도정법 제27조 제1항 제3호에 의거 신탁업자 사업시행자 지정</div>
+      <div class="t-card active">
+        <div class="t-num">02</div>
+        <div class="t-period">신탁 전환</div>
+        <div class="t-event">한국토지신탁으로 사업시행자 전환</div>
+        <div class="t-detail">도정법 제27조 제1항 제3호에 의거 신탁업자 사업시행자 지정</div>
+        <div class="t-accent"></div>
       </div>
-      <div class="timeline-item">
-        <div class="year">사업 재개</div>
-        <div class="event">사업시행계획인가 획득 및 착공</div>
-        <div class="detail">공사비 재산정, 분양단가 조정, 사업비 구조 최적화</div>
+      <div class="t-card">
+        <div class="t-num">03</div>
+        <div class="t-period">사업 재개</div>
+        <div class="t-event">사업시행계획인가 획득 및 착공</div>
+        <div class="t-detail">공사비 재산정, 분양단가 조정, 사업비 구조 최적화로 수익성 확보</div>
       </div>
-      <div class="timeline-item">
-        <div class="year">준공</div>
-        <div class="event">2,267세대 준공 완료</div>
-        <div class="detail">신탁방식 정비사업 중 최대 규모 단지 준공 — 조합원 분담금 대폭 절감 실현</div>
+      <div class="t-card">
+        <div class="t-num">04</div>
+        <div class="t-period">준공</div>
+        <div class="t-event">2,267세대 준공 완료</div>
+        <div class="t-detail">신탁방식 정비사업 중 최대 규모 단지 준공 — 조합원 분담금 대폭 절감 실현</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- QUOTE -->
 <section class="quote-section">
-  <div class="section-inner">
+  <div class="quote-inner reveal">
+    <div class="quote-mark" aria-hidden="true">"</div>
     <blockquote>
-      "신탁방식의 상징적인 사업장으로 평가받는 대전 용운주공 재건축사업은,
-      조합방식으로 정체됐던 사업을 한국토지신탁이 인수해 사업성을 603억원 개선시킨 사례입니다.
-      단순한 수치 개선을 넘어, 신탁방식 정비사업이 조합원에게 실질적 이익을 돌려줄 수 있음을
-      입증한 대한민국 도시정비사업의 새로운 기준입니다."
-      <cite>— 한국토지신탁 도시재생지원팀</cite>
+      "신탁방식 정비사업이 조합원에게 실질적 이익을 돌려줄 수 있음을 입증한 대한민국 도시정비사업의 새로운 기준입니다."
     </blockquote>
+    <cite>— 한국토지신탁 도시재생지원팀</cite>
   </div>
 </section>
 
 <footer>
-  <div class="disclaimer">
-    <p>본 자료는 한국토지신탁(주)의 자산이므로 무단 배포 및 전용을 금합니다.<br>
-    금융투자상품은 자산가격변동 등에 따라 투자원금의 손실이 발생할 수 있으며, 그 손실은 투자자에게 귀속됩니다.<br>
-    상기 수치는 특정 사업 사례 기준이며 모든 사업에 동일하게 적용되지 않을 수 있습니다.</p>
-    <p style="margin-top:12px;"><strong>한국토지신탁 (KOREIT)</strong> · www.koreit.co.kr</p>
+  <div class="footer-inner">
+    <div>
+      <p>본 자료는 한국토지신탁(주)의 자산이므로 무단 배포 및 전용을 금합니다.</p>
+      <p>금융투자상품은 자산가격변동 등에 따라 투자원금의 손실이 발생할 수 있으며, 그 손실은 투자자에게 귀속됩니다.</p>
+      <p>상기 수치는 특정 사업 사례 기준이며 모든 사업에 동일하게 적용되지 않을 수 있습니다.</p>
+    </div>
+    <div style="text-align:right; white-space:nowrap;">
+      <strong>한국토지신탁 (KOREIT)</strong><br>
+      www.koreit.co.kr
+    </div>
   </div>
 </footer>
 
+<script>
+// 카운트업
+function countUp(el) {
+  const target = parseInt(el.dataset.count);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 4);
+    el.textContent = Math.round(target * ease).toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// 스크롤 reveal + 바 애니메이션
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    el.classList.add('visible');
+
+    // 카운트업 숫자들
+    el.querySelectorAll('[data-count]').forEach(countUp);
+
+    // 바 애니메이션
+    el.querySelectorAll('.kpi-bar').forEach(bar => {
+      bar.style.transform = 'scaleX(1)';
+    });
+
+    io.unobserve(el);
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// 히어로 카운트업 (바로 실행)
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.hero-stats [data-count]').forEach(countUp);
+  }, 400);
+});
+</script>
 </body>
 </html>

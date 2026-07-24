@@ -64,11 +64,14 @@ header {
 .logo-name {
   font-size: 13px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em;
 }
-.header-tag {
-  font-size: 11px; color: var(--gray);
-  border: 1px solid var(--border);
-  padding: 4px 12px; border-radius: 20px;
+.header-nav { display: flex; gap: 8px; }
+.header-nav a {
+  font-size: 12px; color: var(--gray); text-decoration: none;
+  padding: 4px 12px; border: 1px solid var(--border); border-radius: 20px;
+  transition: all 0.2s;
 }
+.header-nav a:hover { color: var(--ink); border-color: var(--ink); }
+.header-nav a.active { color: var(--ink); border-color: var(--ink); background: var(--cream2); }
 
 /* ── HERO ── */
 .hero {
@@ -381,8 +384,9 @@ footer strong { color: rgba(255,255,255,0.5); }
 
 @media (max-width: 680px) {
   header { padding: 0 20px; }
+  .header-nav { display: none; }
   .hero { padding: 100px 24px 60px; }
-  
+
   .hero-stats { gap: 24px; flex-wrap: wrap; }
   .kpi-section, .compare-section, .timeline-section, .quote-section { padding: 64px 24px; }
   .kpi-grid { grid-template-columns: 1fr; }
@@ -399,7 +403,10 @@ footer strong { color: rgba(255,255,255,0.5); }
     <div class="logo-mark"><span>KR</span></div>
     <span class="logo-name">한국토지신탁</span>
   </a>
-  <span class="header-tag">도시재생 · 신탁전환 사례</span>
+  <nav class="header-nav">
+    <a href="https://koreit-case.github.io/jangmi/">여의도 장미</a>
+    <a href="https://koreit-case.github.io/yongwoon/" class="active">대전 용운주공</a>
+  </nav>
 </header>
 
 <!-- HERO -->

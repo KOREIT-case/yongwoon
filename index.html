@@ -20,6 +20,10 @@
   --gold: #C49A2E;
   --gray: #6B7280;
   --border: #DDD8CE;
+  /* 섹션 색 밴드 */
+  --paper: #FCFAF6;       /* 상세 비교 — 최고 명도 */
+  --tint: #E9F3EF;        /* 추진 경과 — 사례 악센트(그린) 연한 버전 */
+  --accent-deep: #0A5F49; /* 마감 인용 — 사례 악센트 딥 */
 }
 
 html { scroll-behavior: smooth; }
@@ -230,7 +234,7 @@ header {
 /* ── COMPARE SECTION ── */
 .compare-section {
   padding: 100px 48px;
-  background: white;
+  background: var(--paper);
 }
 .compare-inner { max-width: 960px; margin: 0 auto; }
 .section-eyebrow {
@@ -281,7 +285,7 @@ header {
 .compare-table .diff { color: var(--green); font-weight: 700; }
 .compare-table .diff-cost { color: var(--green); font-weight: 700; }
 .compare-table .highlight td {
-  background: var(--cream); font-weight: 700;
+  background: var(--cream2); font-weight: 700;
 }
 .compare-table .group-header td {
   background: var(--ink); color: rgba(255,255,255,0.5);
@@ -292,7 +296,7 @@ header {
 /* ── TIMELINE ── */
 .timeline-section {
   padding: 100px 48px;
-  background: var(--cream);
+  background: var(--tint);
 }
 .timeline-inner { max-width: 960px; margin: 0 auto; }
 .timeline-grid {
@@ -336,7 +340,7 @@ header {
 
 /* ── QUOTE ── */
 .quote-section {
-  background: var(--ink2);
+  background: var(--accent-deep);
   padding: 100px 48px;
 }
 .quote-inner {
@@ -344,8 +348,8 @@ header {
 }
 .quote-mark {
   font-family: 'DM Serif Display', serif;
-  font-size: 80px; color: var(--blue-light);
-  line-height: 0.6; margin-bottom: 24px; opacity: 0.3;
+  font-size: 80px; color: #7FD3B8;
+  line-height: 0.6; margin-bottom: 24px; opacity: 0.5;
 }
 blockquote {
   font-family: 'DM Serif Display', serif;
@@ -355,7 +359,7 @@ blockquote {
 }
 cite {
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 13px; color: rgba(255,255,255,0.3);
+  font-size: 13px; color: rgba(255,255,255,0.62);
   font-style: normal; letter-spacing: 0.05em;
 }
 

@@ -232,6 +232,10 @@ tr.result td { background: var(--navy-10); font-weight: 500; color: var(--navy);
 .neu { color: var(--text-2); }
 td small { color: var(--text-3); font-size: 12px; margin-left: 4px; }
 .note { font-size: 12px; color: var(--text-2); margin-top: 16px; line-height: 1.7; }
+.note.caution { margin: 0 0 12px; }
+.basis { font-size: 12px; font-weight: 500; color: var(--navy); text-align: right; margin-bottom: 8px; }
+.kcell .k-vs { font-size: 12px; color: var(--text-2); margin-top: 6px; line-height: 1.5; }
+thead th small { display: block; font-size: 11px; font-weight: 300; color: var(--text-2); }
 
 /* ── phases ── */
 .phases { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
@@ -269,13 +273,13 @@ td small { color: var(--text-3); font-size: 12px; margin-left: 4px; }
 <section class="hero">
   <div class="hero-inner">
     <div class="eyebrow">CASE STUDY · 대전 용운주공 재건축</div>
-    <h1>조합에서 신탁으로,<br>603억원의 차이</h1>
+    <h1>조합에서 신탁으로,<br>604억원의 차이</h1>
     <p class="hero-sub">수익성 부족으로 정체됐던 재건축사업. 한국토지신탁이 사업시행자로 전환한 뒤 수입 증가와 비용 절감을 동시에 실현했습니다.</p>
     <div class="hero-kpis">
-      <div class="kpi"><div class="val accent" data-count="603" data-suffix="억">0억</div><div class="lbl">총 이익 개선 (조합방식 대비)</div></div>
+      <div class="kpi"><div class="val accent" data-count="604" data-suffix="억">0억</div><div class="lbl">총 이익 개선 (조합방식 사업재개 가정 대비)</div></div>
       <div class="kpi"><div class="val" data-count="2267" data-suffix="세대">0세대</div><div class="lbl">준공 규모</div></div>
-      <div class="kpi"><div class="val">120.37%</div><div class="lbl">신탁방식 수익률</div></div>
-      <div class="kpi"><div class="val">+7천만원</div><div class="lbl">조합원 1인당 추가 수익</div></div>
+      <div class="kpi"><div class="val">120.37%</div><div class="lbl">신탁방식 비례율</div></div>
+      <div class="kpi"><div class="val">+6,500만원</div><div class="lbl">조합원 1인당 추가 수익</div></div>
     </div>
   </div>
 </section>
@@ -288,28 +292,33 @@ td small { color: var(--text-3); font-size: 12px; margin-left: 4px; }
       <h2 class="sec-title">조합방식 대비 무엇이 달라졌나</h2>
       <div class="ci-line"></div>
     </div>
+    <p class="note caution reveal">※ 상기 내용은 특정 시점의 사례로서 타 사업장과 다를 수 있으며, 실제 계획 수립 후 사업시행계획인가 등을 거쳐 변동될 수 있습니다.</p>
+    <p class="basis reveal">※ 신탁방식 수치는 최종 관리처분인가 기준</p>
     <div class="kpi-band reveal">
       <div class="kpi-head">
-        <div class="big">603<small>억원</small></div>
-        <div class="desc">수입 증가 300억 + 사업비 절감 303억 (청산 추가이익 100억 별도)</div>
+        <div class="big">604<small>억원</small></div>
+        <div class="desc">수입 증가 300억 + 사업비 절감 304억</div>
       </div>
       <div class="kpi-cells">
         <div class="kcell">
           <div class="k-label">수입 증가</div>
           <div class="k-num" data-count="300" data-suffix="억">0억</div>
-          <div class="k-sub">사업수입 5.7% 증가</div>
+          <div class="k-sub">사업수입 5.9% 증가</div>
+          <div class="k-vs">5,101억원(조합방식 사업재개 가정) VS 5,401억원(신탁방식)</div>
           <div class="k-bar"><i style="width:60%"></i></div>
         </div>
         <div class="kcell accent">
           <div class="k-label">사업비 절감</div>
-          <div class="k-num" data-count="303" data-suffix="억">0억</div>
+          <div class="k-num" data-count="304" data-suffix="억">0억</div>
           <div class="k-sub">총 사업비 6.5% 절감</div>
+          <div class="k-vs">4,653억원(조합방식 사업재개 가정) VS 4,349억원(신탁방식)</div>
           <div class="k-bar"><i style="width:65%"></i></div>
         </div>
         <div class="kcell">
           <div class="k-label">조합원 1인당</div>
-          <div class="k-num">+7천만원</div>
+          <div class="k-num">+6,500만원</div>
           <div class="k-sub">추가 수익 발생</div>
+          <div class="k-vs">4,851만원(조합방식 사업재개 가정) VS 11,386만원(신탁방식)</div>
           <div class="k-bar"><i style="width:70%"></i></div>
         </div>
       </div>
@@ -328,9 +337,9 @@ td small { color: var(--text-3); font-size: 12px; margin-left: 4px; }
 
     <div class="bars reveal">
       <div class="bar-row">
-        <div class="bar-label"><span>사업 수입</span><span><strong>신탁 5,401억</strong> <span class="vs">· 조합 5,019억</span></span></div>
+        <div class="bar-label"><span>사업 수입</span><span><strong>신탁 5,401억</strong> <span class="vs">· 조합 5,101억</span></span></div>
         <div class="track"><div class="fill a" style="width:100%"></div></div>
-        <div class="track" style="margin-top:4px;"><div class="fill b" style="width:92.9%"></div></div>
+        <div class="track" style="margin-top:4px;"><div class="fill b" style="width:94.4%"></div></div>
       </div>
       <div class="bar-row">
         <div class="bar-label"><span>사업비</span><span><strong>신탁 4,349억</strong> <span class="vs">· 조합 4,653억</span></span></div>
@@ -338,33 +347,31 @@ td small { color: var(--text-3); font-size: 12px; margin-left: 4px; }
         <div class="track" style="margin-top:4px;"><div class="fill b" style="width:100%"></div></div>
       </div>
       <div class="bar-row">
-        <div class="bar-label"><span>수익률</span><span><strong>신탁 120.37%</strong> <span class="vs">· 조합 104.05%</span></span></div>
+        <div class="bar-label"><span>비례율</span><span><strong>신탁 120.37%</strong> <span class="vs">· 조합 51.28%</span></span></div>
         <div class="track"><div class="fill a" style="width:100%"></div></div>
-        <div class="track" style="margin-top:4px;"><div class="fill b" style="width:86.4%"></div></div>
+        <div class="track" style="margin-top:4px;"><div class="fill b" style="width:42.6%"></div></div>
       </div>
     </div>
-    <div class="legend reveal"><span><i style="background:var(--navy)"></i>신탁방식</span><span><i style="background:var(--green)"></i>신탁방식 (절감)</span><span><i style="background:#C9CDD2"></i>조합방식</span></div>
+    <div class="legend reveal"><span><i style="background:var(--navy)"></i>신탁방식</span><span><i style="background:var(--green)"></i>신탁방식 (절감)</span><span><i style="background:#C9CDD2"></i>조합방식 (사업재개 가정)</span></div>
 
     <div class="reveal" style="overflow-x:auto;">
     <table>
       <thead>
-        <tr><th>구분</th><th>조합방식</th><th>신탁방식</th><th>차이</th><th>비고</th></tr>
+        <tr><th>구분</th><th>조합방식<small>사업재개 가정</small></th><th>신탁방식<small>최종 관리처분인가</small></th><th>차이</th><th>비고</th></tr>
       </thead>
       <tbody>
         <tr class="group"><td colspan="5">사업 수입</td></tr>
-        <tr class="total"><td>합계</td><td>5,019억원</td><td>5,401억원</td><td class="up">+382억원</td><td></td></tr>
-        <tr><td>분양수입 + 기타</td><td>5,019억원</td><td>5,101억원</td><td class="up">+290억원</td><td>분양단가 상승 · 일반분양 세대수 증가</td></tr>
-        <tr><td>추가수입</td><td>—</td><td>+10억원</td><td class="up">+10억원</td><td></td></tr>
+        <tr class="total"><td>합계</td><td>5,101억원</td><td>5,401억원</td><td class="up">+300억원</td><td>사업수입 5.9% 증가</td></tr>
         <tr class="group"><td colspan="5">사업비</td></tr>
-        <tr class="total"><td>합계</td><td>4,653억원</td><td>4,349억원</td><td class="down">−303억원</td><td>총 사업비 6.5% 절감</td></tr>
+        <tr class="total"><td>합계</td><td>4,653억원</td><td>4,349억원</td><td class="down">−304억원</td><td>총 사업비 6.5% 절감</td></tr>
         <tr><td>도급공사비</td><td>3,417억원<small>@376만원</small></td><td>2,909억원<small>@332만원</small></td><td class="down">−508억원</td><td>공사비 절감</td></tr>
-        <tr><td>기타 사업비</td><td>829억원</td><td>1,280억원</td><td class="neu">+451억원</td><td></td></tr>
+        <tr><td>기타 사업비</td><td>1,236억원</td><td>1,280억원</td><td class="neu">+44억원</td><td></td></tr>
         <tr><td>신탁보수</td><td>—</td><td>160억원</td><td class="neu">+160억원</td><td></td></tr>
-        <tr class="result"><td>수익률</td><td>104.05%</td><td>120.37%</td><td>+69.09%p</td><td>조합원 분담금 감소</td></tr>
+        <tr class="result"><td>비례율</td><td>51.28%</td><td>120.37%</td><td>+69.09%p</td><td>조합원 분담금 감소</td></tr>
       </tbody>
     </table>
     </div>
-    <p class="note reveal">※ 상기 내용은 특정 시점의 사례로서 타 사업장과 다를 수 있으며, 실제 계획 수립 후 사업시행계획인가 등을 거쳐 변동될 수 있습니다.</p>
+    <p class="note reveal">※ 조합방식 수치는 사업재개를 가정해 재산정한 값이며, 조합의 최초 관리처분 비례율은 104.05%입니다.<br>※ 출처: 「관리처분계획인가 고시문(용운주공 아파트 재건축)」, 당사 관리처분 최종자료(분양대상 조합원 924세대)</p>
   </div>
 </section>
 
@@ -399,9 +406,10 @@ td small { color: var(--text-3); font-size: 12px; margin-left: 4px; }
         <div class="n">04</div>
         <div class="p">준공</div>
         <div class="e">2,267세대 준공 완료</div>
-        <div class="d">신탁방식 정비사업 중 최대 규모 단지 준공 — 조합원 분담금 대폭 절감 실현</div>
+        <div class="d">부동산신탁회사 최초 재건축 준공<sup>※</sup> — 조합원 분담금 절감 실현</div>
       </div>
     </div>
+    <p class="note reveal">※ 출처: 당사 사업보고서 — "당사는 부동산신탁회사 최초로 '대전 용운 재건축사업'의 사업대행자로 참여하여 착공부터 분양까지 성공적으로 완료한 바 있습니다."</p>
   </div>
 </section>
 
